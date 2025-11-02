@@ -1,0 +1,25 @@
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+.pytest_cache/
+.coverage
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Test artifacts
+artifacts/screenshots/*.png
+reports/
+artifacts/*.html
+
+# Selenium/WebDriver downloads (if any)
+*.log
