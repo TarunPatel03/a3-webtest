@@ -17,7 +17,7 @@ venv/
 .idea/
 
 # Test artifacts
-artifacts/screenshots/*.png
+
 reports/
 artifacts/*.html
 
