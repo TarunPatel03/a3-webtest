@@ -1,12 +1,4 @@
-"""
-T016 — Add first result to cart from grid
-Function: F4 — Add to cart
-Tester: Tarun Patel
-Steps:
-  1) Search for "iphone"
-  2) Click Add to Cart on first product
-Expected: Cart shows at least one item.
-"""
+
 import pytest
 from selenium.webdriver.common.keys import Keys
 from .utils import wait_visible, wait_all_present, try_xpath_any, scroll_into_view_and_click

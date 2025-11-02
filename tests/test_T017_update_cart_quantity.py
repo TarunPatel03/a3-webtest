@@ -1,12 +1,4 @@
-"""
-T017 — Update item quantity in cart
-Function: F4 — Add to cart
-Tester: Tarun Patel
-Steps:
-  1) Ensure an item exists in cart
-  2) Update quantity to 2
-Expected: Quantity updates; totals recalc.
-"""
+
 import pytest
 from selenium.webdriver.common.keys import Keys
 from .utils import wait_visible, wait_all_present, try_xpath_any, scroll_into_view_and_click

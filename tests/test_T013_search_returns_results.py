@@ -1,11 +1,4 @@
-"""
-T013 — Search returns results for common term
-Function: F3 — Product search
-Tester: Jaiden Valencia
-Steps:
-  1) Search for "iphone"
-Expected: One or more products listed.
-"""
+
 import pytest
 from selenium.webdriver.common.keys import Keys
 from .utils import wait_visible, wait_all_present

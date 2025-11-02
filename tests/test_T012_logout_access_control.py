@@ -1,12 +1,4 @@
-"""
-T012 — Access control after logout
-Function: F5 — User logout
-Tester: Ethan Do
-Steps:
-  1) Ensure logged in; then logout
-  2) Attempt to access a protected page (order history)
-Expected: Redirect to login or access denied.
-"""
+
 import pytest
 from .helpers import ensure_logged_in, LOGOUT_URL
 from .utils import save_named_screenshot

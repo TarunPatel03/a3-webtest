@@ -1,11 +1,4 @@
-"""
-T005 — Registration required fields enforcement
-Function: F2 — User registration
-Tester: Riya Malvi
-Steps:
-  1) Submit the registration form without filling required fields
-Expected: HTML5 validity or server alert prevents submission.
-"""
+
 import time
 import pytest
 from .helpers import REGISTER_URL

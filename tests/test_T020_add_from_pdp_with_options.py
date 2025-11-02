@@ -1,13 +1,4 @@
-"""
-T020 — Add to cart from product detail page (with required options)
-Function: F4 — Add to cart
-Tester: Tarun Patel
-Steps:
-  1) Search broadly (e.g., "phone")
-  2) Open first PDP and satisfy required options
-  3) Add to cart
-Expected: Cart shows at least 1 item with options applied.
-"""
+
 import pytest
 from selenium.webdriver.common.keys import Keys
 from .utils import wait_visible, wait_all_present, try_xpath_any, scroll_into_view_and_click, save_named_screenshot

@@ -1,11 +1,4 @@
-"""
-T015 — Search is case-insensitive
-Function: F3 — Product search
-Tester: Jaiden Valencia
-Steps:
-  1) Search for UPPERCASE term and lowercase term
-Expected: Comparable result counts.
-"""
+
 import pytest
 from selenium.webdriver.common.keys import Keys
 from .utils import wait_visible

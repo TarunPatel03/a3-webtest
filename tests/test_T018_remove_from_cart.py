@@ -1,12 +1,4 @@
-"""
-T018 — Remove item from cart
-Function: F4 — Add to cart
-Tester: Tarun Patel
-Steps:
-  1) Open cart page
-  2) Remove visible items
-Expected: At least one remove action succeeds or cart is empty.
-"""
+
 import pytest
 from .utils import save_named_screenshot
 

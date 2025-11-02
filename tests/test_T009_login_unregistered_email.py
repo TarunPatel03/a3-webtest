@@ -1,11 +1,4 @@
-"""
-T009 — Login with unregistered email
-Function: F1 — User login
-Tester: Caroline Potres
-Steps:
-  1) Attempt login with an email that does not exist
-Expected: Error shown or remain on login page.
-"""
+
 import pytest
 from .helpers import LOGIN_URL
 from .utils import try_xpath_any, get_body_text_stable

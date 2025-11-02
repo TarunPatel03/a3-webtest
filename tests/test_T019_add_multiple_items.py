@@ -1,12 +1,4 @@
-"""
-T019 — Search then add multiple items to cart
-Function: F3 + F4 — Search + Add to cart
-Tester: Ethan Do
-Steps:
-  1) Search for a common term (e.g., "phone")
-  2) Add the first two results to cart
-Expected: Cart shows 2 line items or total quantity >= 2.
-"""
+
 import pytest
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException

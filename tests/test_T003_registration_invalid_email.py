@@ -1,12 +1,4 @@
-"""
-T003 — Registration input validation (invalid email)
-Function: F2 — User registration
-Tester: Edward Doan
-Steps:
-  1) Open Register page; enter invalid email (e.g., 'invalid')
-  2) Fill other fields; submit
-Expected: Inline validation or alert indicates invalid email; registration blocked.
-"""
+
 import pytest
 from .helpers import REGISTER_URL
 from .utils import wait_visible, try_xpath_any, get_body_text_stable

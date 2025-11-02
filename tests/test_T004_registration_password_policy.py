@@ -1,12 +1,4 @@
-"""
-T004 — Registration password policy (weak password)
-Function: F2 — User registration
-Tester: Edward Doan
-Steps:
-  1) Enter short/weak password (e.g., 12345)
-  2) Submit
-Expected: Validation message for password; registration blocked.
-"""
+
 import time
 import pytest
 from .helpers import REGISTER_URL

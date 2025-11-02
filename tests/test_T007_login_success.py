@@ -1,12 +1,4 @@
-"""
-T007 — Successful user login
-Function: F1 — User login (depends on F2)
-Tester: Caroline Potres
-Steps:
-  1) Create an account
-  2) Login with correct credentials
-Expected: Account dashboard visible.
-"""
+
 import pytest
 from .helpers import create_account, LOGIN_URL, ACCOUNT_URL
 from .utils import try_xpath_any, get_body_text_stable, wait_visible, safe_click_with_retry, save_named_screenshot

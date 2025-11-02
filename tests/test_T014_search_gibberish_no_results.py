@@ -1,11 +1,4 @@
-"""
-T014 — Search with gibberish shows no results message
-Function: F3 — Product search
-Tester: Jaiden Valencia
-Steps:
-  1) Search for a random string
-Expected: No results message or zero items.
-"""
+
 import pytest
 from selenium.webdriver.common.keys import Keys
 from .utils import wait_visible, get_body_text_stable

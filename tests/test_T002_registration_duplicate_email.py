@@ -1,12 +1,4 @@
-"""
-T002 — Registration with existing email blocked
-Function: F2 — User registration
-Tester: Edward Doan
-Steps:
-  1) Register a valid account
-  2) Try to register again with the same email
-Expected: Error/alert indicates email already registered; registration is blocked.
-"""
+
 import pytest
 from .helpers import fill_registration_form, unique_email, REGISTER_URL, LOGOUT_URL
 from .utils import wait_visible, try_xpath_any, get_body_text_stable

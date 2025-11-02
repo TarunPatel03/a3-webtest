@@ -1,11 +1,4 @@
-"""
-T006 — Registration with international characters
-Function: F2 — User registration
-Tester: Riya Malvi
-Steps:
-  1) Register using Unicode names (e.g., Łukasz, Галина)
-Expected: Registration succeeds and names render on account page.
-"""
+
 import pytest
 from .helpers import unique_email, REGISTER_URL
 from .utils import wait_visible, try_xpath_any, get_body_text_stable
