@@ -9,9 +9,13 @@ from selenium.common.exceptions import (
     NoSuchElementException,
     WebDriverException,
 )
+from pathlib import Path
+from datetime import datetime
 
 
 DEFAULT_TIMEOUT = 15
+ARTIFACTS_DIR = Path(__file__).resolve().parent.parent / "artifacts"
+SCREENSHOT_DIR = ARTIFACTS_DIR / "screenshots"
 
 
 def wait_visible(driver: WebDriver, by: str, selector: str, timeout: int = DEFAULT_TIMEOUT):
@@ -126,3 +130,19 @@ def safe_click_with_retry(driver: WebDriver, by: str, selector: str, timeout: in
             continue
     if last_exc:
         raise last_exc
+
+
+def save_named_screenshot(driver: WebDriver, filename_base: str) -> Optional[Path]:
+    """Save a screenshot with a custom base name into artifacts/screenshots.
+
+    Returns the path if successful, otherwise None.
+    """
+    try:
+        SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
+        ts = datetime.now().strftime("%Y%m%d-%H%M%S")
+        safe_base = "".join(c for c in filename_base if c.isalnum() or c in ("-", "_"))[:60]
+        path = SCREENSHOT_DIR / f"{safe_base}_{ts}.png"
+        driver.save_screenshot(str(path))
+        return path
+    except Exception:
+        return None

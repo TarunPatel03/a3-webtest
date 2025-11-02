@@ -3,6 +3,7 @@ import pytest
 from datetime import datetime
 import re
 from pathlib import Path
+from urllib.parse import urlparse, parse_qs
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -93,7 +94,38 @@ def pytest_runtest_makereport(item, call):
             nodeid = item.nodeid
             m = re.search(r"T\d{3}", nodeid)
             case_id = m.group(0) if m else nodeid.replace('::', '__').replace('/', '_')
-            fname = f"{case_id}_{label}_{ts}.png"
+            # Derive a short page context from URL/title/DOM state to distinguish pages
+            try:
+                url = drv.current_url
+                parsed = urlparse(url)
+                qs = parse_qs(parsed.query)
+                route = (qs.get('route', [""])[0] or "").strip()
+                if route:
+                    context = route.replace('/', '-')
+                else:
+                    # fallback to path segment or title
+                    context = (parsed.path.strip('/').replace('/', '-') or drv.title or "page").lower().replace(' ', '-')
+                # include a short title slug
+                title_slug = (drv.title or "").lower().strip().replace(' ', '-')
+                title_slug = re.sub(r"[^a-z0-9\-]", "", title_slug)[:24]
+                # include presence of alert banners as a signal (e.g., login failure)
+                try:
+                    has_alert = bool(drv.find_elements("css selector", ".alert-danger, .alert-warning"))
+                except Exception:
+                    has_alert = False
+                alert_slug = "alert" if has_alert else "noalert"
+                # include presence of login form fields to differentiate login page vs account area
+                try:
+                    has_login_form = bool(drv.find_elements("id", "input-email")) and bool(drv.find_elements("id", "input-password"))
+                except Exception:
+                    has_login_form = False
+                form_slug = "loginform" if has_login_form else "noform"
+                # normalize primary context and combine
+                context = re.sub(r"[^a-zA-Z0-9\-]", "", context)[:28] or "page"
+                combined_ctx = "__".join(filter(None, [context, title_slug, alert_slug, form_slug]))
+            except Exception:
+                combined_ctx = "page"
+            fname = f"{case_id}_{label}_{ts}__{combined_ctx}.png"
             path = SCREENSHOT_DIR / fname
             try:
                 drv.save_screenshot(str(path))

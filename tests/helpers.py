@@ -4,6 +4,7 @@ from .utils import try_xpath_any, wait_visible, get_body_text_stable
 REGISTER_URL = "https://ecommerce-playground.lambdatest.io/index.php?route=account/register"
 LOGIN_URL = "https://ecommerce-playground.lambdatest.io/index.php?route=account/login"
 LOGOUT_URL = "https://ecommerce-playground.lambdatest.io/index.php?route=account/logout"
+ACCOUNT_URL = "https://ecommerce-playground.lambdatest.io/index.php?route=account/account"
 
 
 def unique_email() -> str:

@@ -533,58 +533,43 @@ Notes
 
 ---
 
-## 6. Test cases (individual mapping)
-
-Each member must deliver three unique, detailed test cases (no overlap). Suggested assignment below—update as needed.
-
-| Member | Test Case IDs |
-|--------|----------------|
-| Riya Malvi | T001 (Registration success), T005 (Required fields), T006 (Unicode names) |
-| Caroline Potres | T007 (Login success), T008 (Wrong password), T009 (Unregistered email), T010 (Case sensitivity) |
-| Jaiden Valencia | T013 (Search returns results), T014 (No results), T015 (Case‑insensitive) |
-| Tarun Patel | T016 (Add to cart from grid), T017 (Update cart quantity), T018 (Remove from cart), T020 (Add from PDP with options) |
-| Ethan Do | T011 (Logout success), T012 (Post‑logout access), T019 (Add multiple items to cart) |
-| Edward Doan | T002 (Registration duplicate), T003 (Invalid email), T004 (Password policy) |
-
-Notes:
-- To satisfy the “3 per student, no overlap” requirement, Edward (Cross‑Function) covered three registration edge cases while also supporting F1 during pairing; Caroline owns core F1 cases including T010 (case sensitivity). Tarun, as F4 owner, additionally covers T020 (PDP with options). Extra assignments above 3 are intentional and acceptable per team agreement.
-
----
-
 ## 7. Analysis & Reflections
 
 Basic statistics (group):
-- Automated suite (headed Chrome, 2025‑11‑02): 22 passed, 6 deselected, 1 xfailed; 0 failed/errored
-- All target cases T001–T020 are fully automated and passing in headed mode.
+- Automated suite (headed Chrome, 2025‑11‑02): 20 passed, 0 deselected, 0 xfailed; 0 failed
+- Coverage: T001–T020 are fully automated and passing in headed mode; one file per test case; screenshots saved for each.
 
 Defects observed (if any):
-- No critical functional defects identified in covered flows (F1–F5) during final headed run.
-- Minor inconsistencies/UX observations from the site under test:
-	- Varying markup for primary actions (Login/Continue appears as <input> or <button> depending on theme); assertions use flexible locators to cope.
-	- Dynamic DOM refresh causes transient staleness of elements (e.g., body, grid cards) during navigation; mitigated by smarter waits.
-	- “No results” phrasing varies slightly across themes; assertions allow multiple acceptable messages.
+- No functional defects in the site under test (F1–F5) during the final headed run.
+- Notes from automation stability work (not product bugs):
+	- Primary actions vary between <input> and <button>; we use flexible locators/XPaths to handle both.
+	- Chrome 141 occasionally raised a transient “Node with given id … does not belong to the document” when reading body text; mitigated by JS `document.body.innerText` with retries.
+	- Theme wording for “no results” can differ; assertions allow equivalent messages.
 
 Successes:
 - Achieved fully green headed run for all target cases (T001–T020) after stabilizing waits and click strategies.
 - Covered core business flows end‑to‑end: Registration → Login → Search → Cart → Logout.
 - Tests resilient to minor UI/theme variations; failures now diagnose real regressions rather than timing.
 - Clear ownership: three unique test cases per member (with two intentional extras to fill T010 and T020).
+ - Specific fixes that improved reliability:
+ 	- Rewrote `get_body_text_stable` to use JS innerText with retries to avoid ChromeDriver staleness.
+ 	- Ensured logout before the duplicate‑email registration attempt (T002) to trigger the expected validation path.
 
 Failures/limitations:
 - Single‑browser certification (Chrome) only; no cross‑browser matrix executed.
 - No accessibility/performance checks included; scope limited to functional happy/negative paths.
 
 Lessons learned:
-- Invest early in robust synchronization (document.readyState + re‑locate on staleness); it saves significant flake triage.
-- Keep assertions tolerant to content wording variations while remaining specific about outcomes.
+- Invest early in robust synchronization (document.readyState + JS innerText + re‑locate on staleness) to eliminate flakes.
+- Keep assertions tolerant to content wording variations while remaining outcome‑specific.
 - Partition data and isolate accounts to allow safe parallelization without cross‑test interference.
-- Prefer helper utilities (click/wait wrappers) shared across tests to enforce consistent stability.
+- Centralize stability helpers (wait/click/text) to enforce consistency across tests.
 
 If doing it again differently:
-- Automate the remaining manual cases (duplicate‑email registration, password policy, Unicode names, multi‑add cart, PDP options) and add page objects for optioned PDPs.
-- Expand to cross‑browser (Firefox/Safari) and add parallel runs (pytest‑xdist) in CI for faster feedback.
-- Include a11y smoke (e.g., axe‑core via selenium‑axe) and basic performance timings for key pages.
-- Seed or mock test data where possible to eliminate reliance on timing of account creation and search indexing.
+- Introduce Page Object Model for higher reuse and clearer intent, especially for PDPs with required options.
+- Add CI with pytest‑xdist and a cross‑browser matrix (Chrome/Firefox/Safari) for broader coverage.
+- Include basic accessibility smoke (axe‑core) and simple performance timings on critical flows.
+- Externalize or seed test data where possible to decouple from live indexing/timing and improve determinism.
 
 ---
 
